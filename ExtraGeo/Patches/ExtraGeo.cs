@@ -10,8 +10,12 @@ namespace YetAnotherSilkSongPlugin.Patches
     {
         [HarmonyPrefix, HarmonyPatch(typeof(HealthManager), "SpawnCurrency")]
         public static void ExtraGeo(ref int smallGeoCount, int ___initHp,
-            int mediumGeoCount, int largeGeoCount, int largeSmoothGeoCount)
+            int mediumGeoCount, int largeGeoCount, int largeSmoothGeoCount,
+            bool shouldShardsFlash, bool shouldGeoFlash)
         {
+            // wtf why is this called 2/3 times
+            if (shouldShardsFlash || shouldGeoFlash) return;
+
             // check existing
             if (IgnoreExistingBeadDrops.Value && (
                 smallGeoCount > 0 || mediumGeoCount > 0 || largeGeoCount > 0 || largeSmoothGeoCount > 0
@@ -30,7 +34,7 @@ namespace YetAnotherSilkSongPlugin.Patches
             }
             else
             {
-                extraBeads = ___initHp / ratio;
+                extraBeads = ___initHp / System.Math.Max(ratio, 1);
             }
 
             smallGeoCount += extraBeads;

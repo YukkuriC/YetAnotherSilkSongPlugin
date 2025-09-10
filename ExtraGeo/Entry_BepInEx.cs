@@ -18,7 +18,7 @@ namespace YetAnotherSilkSongPlugin
             patcher.PatchAll();
 
             // configs
-            BeadsRatio = Config.Bind("General", "Beads Ratio", 5, new ConfigDescription("How many max health will be converted to 1 bead", new AcceptableValueRange<int>(1, 100)));
+            BeadsRatio = Config.Bind("General", "Beads Ratio", 5, "How many max health will be converted to 1 bead (must >= 1)");
             IgnoreExistingBeadDrops = Config.Bind("General", "Ignores Existing Bead Drops", false, "If set to true, those with default bead drops will be ignored");
             GachaMode = Config.Bind("General", "Gacha Mode", false, "Set to true to enable randomized increased beads rather than fixed value");
         }
