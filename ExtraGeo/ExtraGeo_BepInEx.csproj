@@ -72,6 +72,7 @@
   <ItemGroup>
     <Compile Include="Entry_BepInEx.cs" />
     <Compile Include="Patches\ExtraGeo.cs" />
+    <Compile Include="Patches\MaxHealthTracker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ModConfig.cs" />
   </ItemGroup>

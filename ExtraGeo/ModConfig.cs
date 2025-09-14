@@ -6,7 +6,7 @@ namespace YetAnotherSilkSongPlugin
     {
         public const string UID = "yukkuric.silksong.mod.extra_geo";
         public const string NAME = "Extra Rosary Beads";
-        public const string VERSION = "1.2.0";
+        public const string VERSION = "1.3.0";
         public static ConfigEntry<int> BeadsRatio;
         public static ConfigEntry<bool> IgnoreExistingBeadDrops, GachaMode;
     }

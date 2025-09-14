@@ -9,7 +9,7 @@ namespace YetAnotherSilkSongPlugin.Patches
     public class PatchExtraGeo
     {
         [HarmonyPrefix, HarmonyPatch(typeof(HealthManager), "SpawnCurrency")]
-        public static void ExtraGeo(ref int smallGeoCount, int ___initHp,
+        public static void ExtraGeo(ref int smallGeoCount, int ___initHp, HealthManager __instance,
             int mediumGeoCount, int largeGeoCount, int largeSmoothGeoCount,
             bool shouldShardsFlash, bool shouldGeoFlash)
         {
@@ -22,22 +22,29 @@ namespace YetAnotherSilkSongPlugin.Patches
             )) return;
 
             // calc added beads
+            int maxHp = MaxHealthTracker.Get(__instance, ___initHp);
             int ratio = BeadsRatio.Value;
             int extraBeads;
             if (GachaMode.Value)
             {
                 extraBeads = 0;
-                for (int i = 0; i < ___initHp; i++)
+                for (int i = 0; i < maxHp; i++)
                 {
                     if (Random.value * ratio < 1) extraBeads++;
                 }
             }
             else
             {
-                extraBeads = ___initHp / System.Math.Max(ratio, 1);
+                extraBeads = maxHp / System.Math.Max(ratio, 1);
             }
 
             smallGeoCount += extraBeads;
+        }
+
+        [HarmonyPrefix, HarmonyPatch(typeof(HealthManager), "TakeDamage")]
+        public static void RecordHPBeforeHit(HealthManager __instance)
+        {
+            MaxHealthTracker.Track(__instance);
         }
     }
 }
