@@ -18,15 +18,13 @@ namespace YetAnotherSilkSongPlugin.Patches
             int maxHp = MaxHealthTracker.Get(__instance, ___initHp);
 
             // extra shards
-            bool hasBase = shellShardCount > 0;
-            if ((!hasBase) || SHARD.IgnoreExistingDrops.Value)
+            if (SHARD.CanGet(shellShardCount))
             {
                 shellShardCount += SHARD.Get(maxHp);
             }
 
             // extra beads
-            hasBase = smallGeoCount > 0 || mediumGeoCount > 0 || largeGeoCount > 0 || largeSmoothGeoCount > 0;
-            if ((!hasBase) || BEAD.IgnoreExistingDrops.Value)
+            if (BEAD.CanGet(smallGeoCount + mediumGeoCount + largeGeoCount + largeSmoothGeoCount))
             {
                 smallGeoCount += BEAD.Get(maxHp);
                 // merge beads to larger

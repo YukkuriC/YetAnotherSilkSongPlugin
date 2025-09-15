@@ -25,7 +25,12 @@ namespace YetAnotherSilkSongPlugin
             GachaMode = config.Bind(category, "Gacha Mode", false,
                 string.Format("Set to true to enable randomized increased {0}s rather than fixed value", category));
         }
-
+        public bool CanGet(int existed)
+        {
+            if (Ratio.Value <= 0) return false;
+            if (existed <= 0) return true;
+            return IgnoreExistingDrops.Value;
+        }
         public int Get(int maxHp)
         {
             int ratio = Ratio.Value;
